@@ -1,0 +1,31 @@
+name: napari-Shape-Odyssey
+display_name: Shape Odyssey
+contributions:
+  commands:
+    - id: napari-Shape-Odyssey.get_reader
+      python_name: napari_shape_odyssey._reader:napari_get_reader
+      title: Open data with Shape Odyssey
+    - id: napari-Shape-Odyssey.write_multiple
+      python_name: napari_shape_odyssey._writer:write_multiple
+      title: Save multi-layer data with Shape Odyssey
+    - id: napari-Shape-Odyssey.write_single_image
+      python_name: napari_shape_odyssey._writer:write_single_image
+      title: Save image data with Shape Odyssey
+    - id: napari-Shape-Odyssey.make_sample_data
+      python_name: napari_shape_odyssey._sample_data:make_sample_data
+      title: Load sample data from Shape Odyssey
+  readers:
+    - command: napari-Shape-Odyssey.get_reader
+      accepts_directories: false
+      filename_patterns: ['*.npy']
+  writers:
+    - command: napari-Shape-Odyssey.write_multiple
+      layer_types: ['image*','labels*']
+      filename_extensions: []
+    - command: napari-Shape-Odyssey.write_single_image
+      layer_types: ['image']
+      filename_extensions: ['.npy']
+  sample_data:
+    - command: napari-Shape-Odyssey.make_sample_data
+      display_name: Shape Odyssey
+      key: unique_id.1
