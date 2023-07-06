@@ -22,14 +22,16 @@ def napari_get_reader(path):
         If the path is a recognized format, return a function that accepts the
         same path or list of paths, and returns a list of layer data tuples.
     """
+    from pathlib import Path
     if isinstance(path, list):
         # reader plugins may be handed single path, or a list of paths.
         # if it is a list, it is assumed to be an image stack...
         # so we are only going to look at the first file.
-        path = path[0]
+        raise NotImplementedError("This reader does not support reading multiple files")
 
-    # if we know we cannot read the file, we immediately return None.
-    if not path.endswith(".npy"):
+    # Check whether ending is supported
+    path = Path(path)
+    if path.suffix not in ['.vtk', '.vtp', '.stl', '.obj', '.ply']:
         return None
 
     # otherwise we return the *function* that can read ``path``.
@@ -45,8 +47,8 @@ def reader_function(path):
 
     Parameters
     ----------
-    path : str or list of str
-        Path to file, or list of paths.
+    path : str
+        Path to file
 
     Returns
     -------
@@ -58,15 +60,10 @@ def reader_function(path):
         layer. Both "meta", and "layer_type" are optional. napari will
         default to layer_type=="image" if not provided
     """
-    # handle both a string and a list of strings
-    paths = [path] if isinstance(path, str) else path
-    # load all files into array
-    arrays = [np.load(_path) for _path in paths]
-    # stack arrays into single array
-    data = np.squeeze(np.stack(arrays))
+    import vedo
+    from ._utils import _vedo_to_tuple
 
-    # optional kwargs for the corresponding viewer.add_* method
-    add_kwargs = {}
+    mesh = vedo.load(path)
+    data = _vedo_to_tuple(mesh)
 
-    layer_type = "image"  # optional, default is "image"
-    return [(data, add_kwargs, layer_type)]
+    return [(data, {}, 'surface')]
