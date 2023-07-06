@@ -1,11 +1,11 @@
-# napari-Shape-Odyssey
+# napari-shape-odyssey
 
-[![License BSD-3](https://img.shields.io/pypi/l/napari-Shape-Odyssey.svg?color=green)](https://github.com/jo-mueller/napari-Shape-Odyssey/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-Shape-Odyssey.svg?color=green)](https://pypi.org/project/napari-Shape-Odyssey)
-[![Python Version](https://img.shields.io/pypi/pyversions/napari-Shape-Odyssey.svg?color=green)](https://python.org)
-[![tests](https://github.com/jo-mueller/napari-Shape-Odyssey/workflows/tests/badge.svg)](https://github.com/jo-mueller/napari-Shape-Odyssey/actions)
-[![codecov](https://codecov.io/gh/jo-mueller/napari-Shape-Odyssey/branch/main/graph/badge.svg)](https://codecov.io/gh/jo-mueller/napari-Shape-Odyssey)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-Shape-Odyssey)](https://napari-hub.org/plugins/napari-Shape-Odyssey)
+[![License BSD-3](https://img.shields.io/pypi/l/napari-shape-odyssey.svg?color=green)](https://github.com/jo-mueller/napari-shape-odyssey/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-shape-odyssey.svg?color=green)](https://pypi.org/project/napari-shape-odyssey)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-shape-odyssey.svg?color=green)](https://python.org)
+[![tests](https://github.com/jo-mueller/napari-shape-odyssey/workflows/tests/badge.svg)](https://github.com/jo-mueller/napari-shape-odyssey/actions)
+[![codecov](https://codecov.io/gh/jo-mueller/napari-shape-odyssey/branch/main/graph/badge.svg)](https://codecov.io/gh/jo-mueller/napari-shape-odyssey)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-shape-odyssey)](https://napari-hub.org/plugins/napari-shape-odyssey)
 
 Analyze shapes of meshes
 
@@ -23,9 +23,9 @@ https://napari.org/stable/plugins/index.html
 
 ## Installation
 
-You can install `napari-Shape-Odyssey` via [pip]:
+You can install `napari-shape-odyssey` via [pip]:
 
-    pip install napari-Shape-Odyssey
+    pip install napari-shape-odyssey
 
 
 
@@ -38,7 +38,7 @@ the coverage at least stays the same before you submit a pull request.
 ## License
 
 Distributed under the terms of the [BSD-3] license,
-"napari-Shape-Odyssey" is free and open source software
+"napari-shape-odyssey" is free and open source software
 
 ## Issues
 
