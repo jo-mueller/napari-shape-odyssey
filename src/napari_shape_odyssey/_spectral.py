@@ -69,7 +69,7 @@ def _shape_fingerprint(surface: "napari.types.SurfaceData",
         A napari layer data tuple.
     """
     eigenvectors, eigenvalues = shape_fingerprint(
-        surface, order=order, intrinsic=True, robust=robust)
+        surface, order=order, robust=robust)
 
     feature_table = pd.DataFrame(
         eigenvectors, columns=[f"eigenvector_{i}" for i in range(order)]
@@ -174,17 +174,16 @@ def wave_kernel_signature(surface: "napari.types.SurfaceData",
                           robust: bool = False) -> np.ndarray:
     from pyFM.signatures import WKS
     eigenvectors, eigenvalues = shape_fingerprint(
-        surface, order=order, intrinsic=True, robust=robust)
+        surface, order=order, robust=robust)
 
     signature = WKS(eigenvalues, eigenvectors, energies, sigma=sigma, scaled=scaled)
 
     return signature
-                          
+
 
 def _heat_kernel_signature(surface: "napari.types.SurfaceData",
                            order: int = 100,
-                           max_time: float = 100,
-                           time_step: float = 10,
+                           max_time: float = 1e6,
                            robust: bool = False,
                            scaled: bool = True) -> LayerDataTuple:
     """
@@ -205,8 +204,10 @@ def _heat_kernel_signature(surface: "napari.types.SurfaceData",
     robust : bool, optional
         Use robust laplacian or not, by default False
     """
+    
+    times = np.asarray([1 * 10**x for x in range(np.log(max_time))])
     signature = heat_kernel_signature(
-        surface, order=order, max_time=max_time, time_step=time_step, robust=robust, scaled=scaled)
+        surface, order=order, times=times, robust=robust, scaled=scaled)
 
     metadata = {'features': pd.DataFrame(
         signature, columns=[f"time_{i}" for i in range(len(signature))]
@@ -217,8 +218,7 @@ def _heat_kernel_signature(surface: "napari.types.SurfaceData",
 
 def heat_kernel_signature(surface: "napari.types.SurfaceData",
                           order: int = 100,
-                          max_time: float = 100,
-                          time_step: float = 10,
+                          times: np.ndarray = np.asarray([1 * 10**x for x in range(10)]),
                           robust: bool = False,
                           scaled: bool = True) -> np.ndarray:
     """
@@ -241,11 +241,9 @@ def heat_kernel_signature(surface: "napari.types.SurfaceData",
     """
     from pyFM.signatures import HKS
 
-    time_list = np.arange(0, max_time, time_step)
-
     eigenvectors, eigenvalues = shape_fingerprint(
-        surface, order=order, intrinsic=intrinsic, robust=robust)
+        surface, order=order, robust=robust)
 
-    signature = HKS(eigenvalues, eigenvectors, time_list=time_list, scaled=scaled)
+    signature = HKS(eigenvalues, eigenvectors, time_list=times, scaled=scaled)
 
     return signature
