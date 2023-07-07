@@ -6,12 +6,32 @@ from napari.types import LayerDataTuple
 
 def _shape_DNA(surface: "napari.types.SurfaceData",
                order: int = 100,
-               intrinsic: bool = False,
-               robust: bool = False,
-               viewer: "napari.Viewer" = None) -> None:
+               robust: bool = False) -> LayerDataTuple:
+    """
+    Compute the shape DNA of a surface.
 
+    Parameters
+    ----------
+    surface : napari.types.SurfaceData
+        A napari surface tuple.
+    order : int, optional
+        The order of shape spectrum to caluculate, by default 100
+    robust : bool, optional
+        Use robust laplacian or not, by default False. In essence,
+        if set to true, a smoothed laplacian will be used which is
+        numerically more stable, but smoothes out geometry.
+
+    See also
+    --------
+    [0] https://pypi.org/project/robust-laplacian/
+
+    Returns
+    -------
+    LayerDataTuple : napari.types.LayerDataTuple
+        A napari layer data tuple.
+    """
     eigenvectors, eigenvalues = shape_DNA(
-        surface, order=order, intrinsic=intrinsic, robust=robust)
+        surface, order=order, intrinsic=True, robust=robust)
 
     feature_table = pd.DataFrame(
         eigenvectors, columns=[f"eigenvector_{i}" for i in range(order)]
@@ -20,23 +40,47 @@ def _shape_DNA(surface: "napari.types.SurfaceData",
         eigenvalues, columns=["eigenvalue"]
     )
 
-    if viewer is not None:
-        layer = viewer.add_surface(surface, name='Result of shape_DNA')
-        layer.metadata['spectrum'] = spectrum_table
-        layer.metadata['feature'] = feature_table
+    metadata = {
+        'spectrum': spectrum_table,
+        'features': feature_table
+    }
 
-    return None
+    return (surface, {'metadata': metadata}, 'surface')
 
 
 def shape_DNA(surface: "napari.types.SurfaceData",
               order: int = 100,
-              intrinsic: bool = False,
               robust: bool = False) -> Tuple:
+    """
+    Compute the shape DNA of a surface.
+
+    Parameters
+    ----------
+    surface : napari.types.SurfaceData
+        A napari surface tuple.
+    order : int, optional
+        The order of shape spectrum to caluculate, by default 100
+    robust : bool, optional
+        Use robust laplacian or not, by default False. In essence,
+        if set to true, a smoothed laplacian will be used which is
+        numerically more stable, but smoothes out geometry.
+
+    See also
+    --------
+    [0] https://pypi.org/project/robust-laplacian/
+
+    Returns
+    -------
+    eigenvectors : np.ndarray
+        The eigenvectors of the shape DNA.
+    eigenvalues : np.ndarray
+        The eigenvalues of the shape DNA.
+    """
 
     from ._utils import _surfacetuple_to_trimesh
 
     mesh = _surfacetuple_to_trimesh(surface)
-    mesh.process(k=order, intrinsic=intrinsic, robust=robust)
+    mesh.process(k=order, intrinsic=True, robust=robust)
 
     return mesh.eigenvectors, mesh.eigenvalues
 
@@ -46,7 +90,8 @@ def heat_kernel_signature(surface: "napari.types.SurfaceData",
                           max_time: float = 100,
                           time_step: float = 10,
                           intrinsic: bool = False,
-                          robust: bool = False) -> np.ndarray:
+                          robust: bool = False,
+                          scaled: bool = True) -> np.ndarray:
     """
     Compute the heat kernel signature of a surface.
 
@@ -72,6 +117,6 @@ def heat_kernel_signature(surface: "napari.types.SurfaceData",
     eigenvectors, eigenvalues = shape_DNA(
         surface, order=order, intrinsic=intrinsic, robust=robust)
 
-    signature = HKS(eigenvalues, eigenvectors, time_list=time_list)
+    signature = HKS(eigenvalues, eigenvectors, time_list=time_list, scaled=scaled)
 
     return signature
