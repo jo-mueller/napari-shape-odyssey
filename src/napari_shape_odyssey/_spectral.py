@@ -34,7 +34,7 @@ def normalize_eigenvalues(eigenvalues: np.ndarray,
         m, c = np.linalg.lstsq(A, eigenvalues, rcond=None)[0]
 
         # normalize eigenvalues
-        eigenvalues_normed = eigenvalues / 
+        eigenvalues_normed = eigenvalues / m
     elif method == 'first':
         first_non_zero = np.where(eigenvalues != 0)[0][0]
         eigenvalues_normed = eigenvalues / eigenvalues[first_non_zero]
@@ -43,8 +43,8 @@ def normalize_eigenvalues(eigenvalues: np.ndarray,
 
 
 def _shape_fingerprint(surface: "napari.types.SurfaceData",
-               order: int = 100,
-               robust: bool = False) -> LayerDataTuple:
+                       order: int = 100,
+                       robust: bool = False) -> LayerDataTuple:
     """
     Compute the shape fingerprint of a surface.
 
