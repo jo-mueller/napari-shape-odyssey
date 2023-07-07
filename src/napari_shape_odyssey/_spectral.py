@@ -123,11 +123,102 @@ def shape_fingerprint(surface: "napari.types.SurfaceData",
     return mesh.eigenvectors, mesh.eigenvalues
 
 
+def _wave_kernel_signature(surface: "napari.types.SurfaceData",
+                            order: int = 100,
+                            n_energies: int = 100,
+                            energy_step_size: float = 10,
+                            sigma: float = 1,
+                            scaled: bool = False,
+                            robust: bool = False) -> LayerDataTuple:
+    """
+    Compute the wave kernel signature of a surface.
+
+    Parameters
+    ----------
+    surface : napari.types.SurfaceData
+        A napari surface tuple.
+    order : int, optional
+        The order of shape spectrum to caluculate, by default 100
+    n_energies : int, optional
+        The number of energies to use for the wave kernel signature, by default 100
+    energy_step_size : float, optional
+        The step size of the energies to use for the wave kernel signature, by default 10
+    sigma : float, optional
+        The sigma to use for the wave kernel signature, by default 1
+    scaled : bool, optional
+        Scale the wave kernel signature or not, by default False
+    robust : bool, optional
+        Use robust laplacian or not, by default False
+
+    Returns
+    -------
+    LayerDataTuple : napari.types.LayerDataTuple
+        A napari layer data tuple.
+    """
+    energies = np.arange(0, n_energies, energy_step_size)
+    signature = wave_kernel_signature(
+        surface, order=order, energies=energies, sigma=sigma, scaled=scaled, robust=robust)
+    
+    metadata = {'features': pd.DataFrame(
+        signature, columns=[f"energy_{i}" for i in range(len(energies))]
+    )}
+
+    return (surface, {'metadata': metadata}, 'surface')
+
+
+def wave_kernel_signature(surface: "napari.types.SurfaceData",
+                          order: int = 100,
+                          energies: np.ndarray,
+                          sigma: float = 1,
+                          scaled: bool = False,
+                          robust: bool = False) -> np.ndarray:
+    from pyFM.signatures import WKS
+    eigenvectors, eigenvalues = shape_fingerprint(
+        surface, order=order, intrinsic=True, robust=robust)
+
+    signature = WKS(eigenvalues, eigenvectors, energies, sigma=sigma, scaled=scaled)
+
+    return signature
+                          
+
+def _heat_kernel_signature(surface: "napari.types.SurfaceData",
+                           order: int = 100,
+                           max_time: float = 100,
+                           time_step: float = 10,
+                           robust: bool = False,
+                           scaled: bool = True) -> LayerDataTuple:
+    """
+    Compute the heat kernel signature of a surface.
+
+    Parameters
+    ----------
+    surface : napari.types.SurfaceData
+        A napari surface tuple.
+    order : int, optional
+        The order of shape spectrum to caluculate, by default 100
+    max_time : float, optional
+        The maximum time of the heat kernel signature, by default 100
+    time_step : float, optional
+        The time step of the heat kernel signature, by default 10
+    intrinsic : bool, optional
+        Use intrinsic triangulation or not, by default False
+    robust : bool, optional
+        Use robust laplacian or not, by default False
+    """
+    signature = heat_kernel_signature(
+        surface, order=order, max_time=max_time, time_step=time_step, robust=robust, scaled=scaled)
+
+    metadata = {'features': pd.DataFrame(
+        signature, columns=[f"time_{i}" for i in range(len(signature))]
+    )}
+
+    return (surface, {'metadata': metadata}, 'surface')
+
+
 def heat_kernel_signature(surface: "napari.types.SurfaceData",
                           order: int = 100,
                           max_time: float = 100,
                           time_step: float = 10,
-                          intrinsic: bool = False,
                           robust: bool = False,
                           scaled: bool = True) -> np.ndarray:
     """
