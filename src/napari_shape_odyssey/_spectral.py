@@ -5,10 +5,12 @@ from napari.types import LayerDataTuple
 
 
 def _shape_DNA(surface: "napari.types.SurfaceData",
+
+def _shape_fingerprint(surface: "napari.types.SurfaceData",
                order: int = 100,
                robust: bool = False) -> LayerDataTuple:
     """
-    Compute the shape DNA of a surface.
+    Compute the shape fingerprint of a surface.
 
     Parameters
     ----------
@@ -30,7 +32,7 @@ def _shape_DNA(surface: "napari.types.SurfaceData",
     LayerDataTuple : napari.types.LayerDataTuple
         A napari layer data tuple.
     """
-    eigenvectors, eigenvalues = shape_DNA(
+    eigenvectors, eigenvalues = shape_fingerprint(
         surface, order=order, intrinsic=True, robust=robust)
 
     feature_table = pd.DataFrame(
@@ -48,11 +50,11 @@ def _shape_DNA(surface: "napari.types.SurfaceData",
     return (surface, {'metadata': metadata}, 'surface')
 
 
-def shape_DNA(surface: "napari.types.SurfaceData",
+def shape_fingerprint(surface: "napari.types.SurfaceData",
               order: int = 100,
               robust: bool = False) -> Tuple:
     """
-    Compute the shape DNA of a surface.
+    Compute the shape fingerprint of a surface.
 
     Parameters
     ----------
@@ -72,9 +74,9 @@ def shape_DNA(surface: "napari.types.SurfaceData",
     Returns
     -------
     eigenvectors : np.ndarray
-        The eigenvectors of the shape DNA.
+        The eigenvectors of the shape fingerprint.
     eigenvalues : np.ndarray
-        The eigenvalues of the shape DNA.
+        The eigenvalues of the shape fingerprint.
     """
 
     from ._utils import _surfacetuple_to_trimesh
@@ -114,7 +116,7 @@ def heat_kernel_signature(surface: "napari.types.SurfaceData",
 
     time_list = np.arange(0, max_time, time_step)
 
-    eigenvectors, eigenvalues = shape_DNA(
+    eigenvectors, eigenvalues = shape_fingerprint(
         surface, order=order, intrinsic=intrinsic, robust=robust)
 
     signature = HKS(eigenvalues, eigenvectors, time_list=time_list, scaled=scaled)

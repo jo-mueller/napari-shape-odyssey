@@ -13,12 +13,12 @@ contributions:
       title: Load sample data from shape odyssey
 
     # Spectral
-    - id: napari-shape-odyssey.shape_DNA_spectral
-      python_name: napari_shape_odyssey._spectral:_shape_DNA
+    - id: napari-shape-odyssey.shape_fingerprint_spectral
+      python_name: napari_shape_odyssey._spectral:_shape_fingerprint
       title: Spectral shape analysis
   
   widgets:
-    - command: napari-shape-odyssey.shape_DNA_spectral
+    - command: napari-shape-odyssey.shape_fingerprint_spectral
       autogenerate: true
       display_name: Spectral shape analysisc
 
