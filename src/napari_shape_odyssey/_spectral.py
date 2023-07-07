@@ -168,7 +168,7 @@ def _wave_kernel_signature(surface: "napari.types.SurfaceData",
 
 def wave_kernel_signature(surface: "napari.types.SurfaceData",
                           order: int = 100,
-                          energies: np.ndarray,
+                          energies: np.ndarray = np.arange(0, 100, 10)
                           sigma: float = 1,
                           scaled: bool = False,
                           robust: bool = False) -> np.ndarray:
