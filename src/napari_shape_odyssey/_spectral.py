@@ -4,7 +4,43 @@ from typing import Tuple
 from napari.types import LayerDataTuple
 
 
-def _shape_DNA(surface: "napari.types.SurfaceData",
+def normalize_eigenvalues(eigenvalues: np.ndarray,
+                          method: str = 'slope') -> np.ndarray:
+    """
+    Normalize the eigenvalues of a shape fingerprint.
+
+    Parameters
+    ----------
+    eigenvalues : np.ndarray
+        The eigenvalues of a shape fingerprint.
+    method : str, optional
+        The method to use for normalization, by default 'slope'.
+        The options are 'slope' and 'first'.
+
+    Returns
+    -------
+    eigenvalues_normed : np.ndarray
+        The normalized eigenvalues of a shape fingerprint.
+
+    See also
+    --------
+    [0] Reuters et al. Laplace-spectra as fingerprints for shape matching (2005)
+    """
+
+    if method == 'slope':
+        # do linear regression
+        x = np.arange(len(eigenvalues))
+        A = np.vstack([x, np.ones(len(x))]).T
+        m, c = np.linalg.lstsq(A, eigenvalues, rcond=None)[0]
+
+        # normalize eigenvalues
+        eigenvalues_normed = eigenvalues / 
+    elif method == 'first':
+        first_non_zero = np.where(eigenvalues != 0)[0][0]
+        eigenvalues_normed = eigenvalues / eigenvalues[first_non_zero]
+
+    return eigenvalues_normed
+
 
 def _shape_fingerprint(surface: "napari.types.SurfaceData",
                order: int = 100,
