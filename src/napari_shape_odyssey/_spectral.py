@@ -183,7 +183,8 @@ def wave_kernel_signature(surface: "napari.types.SurfaceData",
 
 def _heat_kernel_signature(surface: "napari.types.SurfaceData",
                            order: int = 100,
-                           max_time: float = 1e6,
+                           max_time: float = 5,
+                           n_steps: int = 6,
                            robust: bool = False,
                            scaled: bool = True) -> LayerDataTuple:
     """
@@ -196,29 +197,28 @@ def _heat_kernel_signature(surface: "napari.types.SurfaceData",
     order : int, optional
         The order of shape spectrum to caluculate, by default 100
     max_time : float, optional
-        The maximum time of the heat kernel signature, by default 100
-    time_step : float, optional
-        The time step of the heat kernel signature, by default 10
-    intrinsic : bool, optional
-        Use intrinsic triangulation or not, by default False
+        The maximum time of the heat kernel signature in order of
+        magnitude, by default 5 (equals 1e5)
     robust : bool, optional
         Use robust laplacian or not, by default False
     """
-    
-    times = np.asarray([1 * 10**x for x in range(np.log(max_time))])
+    exponents = np.linspace(0, max_time, n_steps)
+    times = np.asarray([1 * 10**x for x in exponents])
+
     signature = heat_kernel_signature(
-        surface, order=order, times=times, robust=robust, scaled=scaled)
+        surface, times=times, order=order, robust=robust, scaled=scaled)
 
     metadata = {'features': pd.DataFrame(
-        signature, columns=[f"time_{i}" for i in range(len(signature))]
+        signature, columns=["HKS_t_{:.2f}".format(t) for t in times]
     )}
+    print(metadata)
 
     return (surface, {'metadata': metadata}, 'surface')
 
 
 def heat_kernel_signature(surface: "napari.types.SurfaceData",
+                          times: np.ndarray,
                           order: int = 100,
-                          times: np.ndarray = np.asarray([1 * 10**x for x in range(10)]),
                           robust: bool = False,
                           scaled: bool = True) -> np.ndarray:
     """
@@ -228,14 +228,11 @@ def heat_kernel_signature(surface: "napari.types.SurfaceData",
     ----------
     surface : napari.types.SurfaceData
         A napari surface tuple.
+    time: np.ndarray,
+        Time values for which to calculate heat kernel values.
+        Good values range over several orders of magnitude (1 - 1e7).
     order : int, optional
         The order of shape spectrum to caluculate, by default 100
-    max_time : float, optional
-        The maximum time of the heat kernel signature, by default 100
-    time_step : float, optional
-        The time step of the heat kernel signature, by default 10
-    intrinsic : bool, optional
-        Use intrinsic triangulation or not, by default False
     robust : bool, optional
         Use robust laplacian or not, by default False
     """
