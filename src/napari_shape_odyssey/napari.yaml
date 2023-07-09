@@ -16,11 +16,13 @@ contributions:
     - id: napari-shape-odyssey.shape_fingerprint_spectral
       python_name: napari_shape_odyssey._spectral:_shape_fingerprint
       title: Spectral shape analysis
+
+    # Signatures
     - id: napari-shape-odyssey.heat_kernel_signature
-      python_name: napari_shape_odyssey._spectral:_heat_kernel_signature
+      python_name: napari_shape_odyssey._signatures.signatures:_heat_kernel_signature
       title: Heat kernel signature
     - id: napari-shape-odyssey.wave_kernel_signature
-      python_name: napari_shape_odyssey._spectral:_wave_kernel_signature
+      python_name: napari_shape_odyssey._signatures.signatures:_wave_kernel_signature
       title: Wave kernel signature
   
   widgets:
