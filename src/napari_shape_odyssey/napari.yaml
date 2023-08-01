@@ -24,6 +24,9 @@ contributions:
     - id: napari-shape-odyssey.wave_kernel_signature
       python_name: napari_shape_odyssey._signatures.signatures:_wave_kernel_signature
       title: Wave kernel signature
+    - id: napari-shape-odyssey.landmark_widget
+      python_name: napari_shape_odyssey._signatures.landmarks:CorrespondenceWidget
+      title: Show shape correspondencens
   
   widgets:
     - command: napari-shape-odyssey.shape_fingerprint_spectral
@@ -35,6 +38,9 @@ contributions:
     - command: napari-shape-odyssey.wave_kernel_signature
       autogenerate: true
       display_name: Wave kernel signature
+    - command: napari-shape-odyssey.landmark_widget
+      autogenerate: false
+      display_name: Show shape correspondencens
 
   readers:
     - command: napari-shape-odyssey.get_reader
