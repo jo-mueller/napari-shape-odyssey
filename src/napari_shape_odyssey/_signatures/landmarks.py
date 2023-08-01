@@ -124,36 +124,4 @@ class CorrespondenceWidget(QWidget):
         data = [self.surface_layer_select.value.data[0],
                 self.surface_layer_select.value.data[1],
                 distance]
-        self.surface_layer_select.value.data = data
-
-
-# def landmarks_heat_kernel_signature(
-#         surface: "napari.types.SurfaceData",
-#         landmarks: "napari.types.PointsData",
-#         times: np.ndarray,
-#         scaled: bool = False,
-#         order: int = 100,
-#         robust: bool = False,
-# ):
-#     import vedo
-#     from pyFM.signatures import lm_HKS
-#     from .._spectral import shape_fingerprint
-
-#     mesh = vedo.Mesh((surface.vertices, surface.faces))
-
-#     list_of_indices = []
-#     for point in landmarks:
-#         pt_vedo = vedo.Point(point)
-#         list_of_indices.append(mesh.closest_point(pt_vedo, return_point_id=True))
-
-#     eigenvalues, eigenvectors = shape_fingerprint(surface, order=order, robust=robust)
-#     landmarks = lm_HKS(evals=eigenvalues, evecs=eigenvectors, landmarks=list_of_indices, times=times, scaled=scaled)
-
-#     return landmarks
-
-
-
-
-
-
-        
+        self.surface_layer_select.value.data = data        
