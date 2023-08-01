@@ -124,4 +124,6 @@ class CorrespondenceWidget(QWidget):
         data = [self.surface_layer_select.value.data[0],
                 self.surface_layer_select.value.data[1],
                 distance]
-        self.surface_layer_select.value.data = data        
+        self.surface_layer_select.value.data = data
+        self.surface_layer_select.colormap = 'inferno_r'
+
