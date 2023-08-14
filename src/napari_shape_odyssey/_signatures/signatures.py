@@ -83,8 +83,7 @@ def _heat_kernel_signature(surface: "napari.types.SurfaceData",
     robust : bool, optional
         Use robust laplacian or not, by default False
     """
-    exponents = np.linspace(0, max_time, n_steps)
-    times = np.asarray([1 * 10**x for x in exponents])
+    times = np.linspace(0, max_time, n_steps)
 
     signature = heat_kernel_signature(
         surface, times=times, order=order, robust=robust, scaled=scaled)
