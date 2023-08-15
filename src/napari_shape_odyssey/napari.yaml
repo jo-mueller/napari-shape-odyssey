@@ -12,6 +12,14 @@ contributions:
       python_name: napari_shape_odyssey._sample_data:make_sample_data
       title: Load sample data from shape odyssey
 
+    # Wrapping
+    - id: napari-shape-odyssey.unwrapping_sphere
+      python_name: napari_shape_odyssey._unwrapping.unwrap:map_surface_to_sphere
+      title: Unwrap surface into sphere
+    - id: napari-shape-odyssey.mercator_projection
+      python_name: napari_shape_odyssey._unwrapping.projections:mercator_projection
+      title: Mercator projection
+
     # Spectral
     - id: napari-shape-odyssey.shape_fingerprint_spectral
       python_name: napari_shape_odyssey._spectral:_shape_fingerprint
@@ -41,6 +49,12 @@ contributions:
     - command: napari-shape-odyssey.landmark_widget
       autogenerate: false
       display_name: Show shape correspondencens
+    - command: napari-shape-odyssey.unwrapping_sphere
+      autogenerate: true
+      display_name: Unwrap surface into sphere
+    - command: napari-shape-odyssey.mercator_projection
+      autogenerate: true
+      display_name: Mercator projection
 
   readers:
     - command: napari-shape-odyssey.get_reader

@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# external programs 
+src/napari_shape_odyssey/_unwrapping/windows-v1.6/*
+src/napari_shape_odyssey/_unwrapping/*.obj
+
 # Distribution / packaging
 .Python
 env/
