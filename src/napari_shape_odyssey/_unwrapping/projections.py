@@ -22,8 +22,11 @@ def mercator_projection(surface: "napari.types.SurfaceData",
     import vedo
     from scipy.interpolate import Rbf
 
-    vedo_mesh = vedo.Mesh(surface[:2])
-    rho, theta, phi = vedo.cart2spher(vedo_mesh.points()[:, 2], vedo_mesh.points()[:, 1], vedo_mesh.points()[:, 0])
+    center = surface[0].min(axis=0) + (surface[0].max(axis=0) - surface[0].min(axis=0)) / 2
+    points_centered = surface[0] - center
+    rho, theta, phi = vedo.cart2spher(points_centered[:, 2], points_centered[:, 1], points_centered[:, 0])
+    theta += np.pi
+    phi -= np.pi / 2
     values = surface[2]
 
     # Convert theta and phi to Mercator coordinates
