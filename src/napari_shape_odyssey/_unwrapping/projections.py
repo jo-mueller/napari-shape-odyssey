@@ -20,23 +20,43 @@ def mercator_projection(surface: "napari.types.SurfaceData",
     """
     import numpy as np
     import vedo
+    from scipy.interpolate import Rbf
 
-    vedo_mesh = vedo.Mesh((surface[0], surface[1]))
-    points = vedo_mesh.points() - vedo_mesh.center_of_mass()[None, :]
+    vedo_mesh = vedo.Mesh(surface[:2])
+    rho, theta, phi = vedo.cart2spher(vedo_mesh.points()[:, 2], vedo_mesh.points()[:, 1], vedo_mesh.points()[:, 0])
     values = surface[2]
 
-    # convert points to spherical coordinates and apply Mercator formula
-    rho, theta, phi = vedo.cart2spher(points[:, 2], points[:, 1], points[:, 0])
-    x_projected = theta
-    y_projected = np.log(np.tan(np.pi / 4 + phi / 2))
+    # Convert theta and phi to Mercator coordinates
+    y_mercator = np.log(np.tan(np.pi/4 + theta/2))
+    x_mercator = phi
 
-    # write values to image map
-    image_map = np.zeros((height, width), dtype=np.uint8)
-    for i in range(len(x_projected)):
-        x = int((x_projected[i] / (2 * np.pi)) * width)
-        y = int((y_projected[i] / np.pi) * height)
-        if x >= 0 and x < width and y >= 0 and y < height:
-            image_map[y, x] = values[i]
+    # Map Mercator coordinates to image coordinates of size 256x128
+    image_width = 256
+    image_height = 128
 
-    return image_map
+    x_normalized = (x_mercator + np.pi) / (2 * np.pi) * image_width
+    x_data = np.clip(np.floor(x_normalized).astype(int), 0, image_width - 1)
+
+    y_clipped = np.clip(y_mercator, -2, 2)
+    y_normalized = (y_clipped + 2) / 4 * image_height
+    y_data = np.clip(np.floor(y_normalized).astype(int), 0, image_height - 1)
+
+    # Jittering: add small noise
+    noise_level = 1e-5
+    x_data = x_data.astype(float)
+    y_data = y_data.astype(float)
+    x_data += np.random.randn(x_data.shape[0]) * noise_level
+    y_data += np.random.randn(y_data.shape[0]) * noise_level
+
+    # Use RBF for interpolation with the image coordinates
+    rbf_interpolator = Rbf(x_data, y_data, values, function='linear')
+
+    # Create a grid for interpolation
+    x_grid = np.arange(0, image_width)
+    y_grid = np.arange(0, image_height)
+    xx, yy = np.meshgrid(x_grid, y_grid)
+
+    interpolated_map = rbf_interpolator(xx, yy)
+
+    return interpolated_map
 
