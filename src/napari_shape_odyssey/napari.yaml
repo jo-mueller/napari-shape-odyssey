@@ -16,6 +16,9 @@ contributions:
     - id: napari-shape-odyssey.unwrapping_sphere
       python_name: napari_shape_odyssey._unwrapping.unwrap:map_surface_to_sphere
       title: Unwrap surface into sphere
+    - id: napari-shape-odyssey.unwrapping_disk
+      python_name: napari_shape_odyssey._unwrapping.unwrap:map_surface_to_disk
+      title: Unwrap surface into disk
     - id: napari-shape-odyssey.mercator_projection
       python_name: napari_shape_odyssey._unwrapping.projections:mercator_projection
       title: Mercator projection
@@ -52,6 +55,9 @@ contributions:
     - command: napari-shape-odyssey.unwrapping_sphere
       autogenerate: true
       display_name: Unwrap surface into sphere
+    - command: napari-shape-odyssey.unwrapping_disk
+      autogenerate: true
+      display_name: Unwrap surface into disk
     - command: napari-shape-odyssey.mercator_projection
       autogenerate: true
       display_name: Mercator projection
