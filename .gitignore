@@ -9,6 +9,8 @@ __pycache__/
 # external programs 
 src/napari_shape_odyssey/_unwrapping/windows-v1.6/*
 src/napari_shape_odyssey/_unwrapping/*.obj
+docs/nosebooks/spectral_analysis/meshes/*
+
 
 # Distribution / packaging
 .Python
