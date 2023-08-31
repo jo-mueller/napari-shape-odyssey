@@ -33,16 +33,12 @@ def mercator_projection(surface: "napari.types.SurfaceData",
     y_mercator = np.log(np.tan(np.pi/4 + theta/2))
     x_mercator = phi
 
-    # Map Mercator coordinates to image coordinates of size 256x128
-    image_width = 256
-    image_height = 128
-
-    x_normalized = (x_mercator + np.pi) / (2 * np.pi) * image_width
-    x_data = np.clip(np.floor(x_normalized).astype(int), 0, image_width - 1)
+    x_normalized = (x_mercator + np.pi) / (2 * np.pi) * width
+    x_data = np.clip(np.floor(x_normalized).astype(int), 0, width - 1)
 
     y_clipped = np.clip(y_mercator, -2, 2)
-    y_normalized = (y_clipped + 2) / 4 * image_height
-    y_data = np.clip(np.floor(y_normalized).astype(int), 0, image_height - 1)
+    y_normalized = (y_clipped + 2) / 4 * height
+    y_data = np.clip(np.floor(y_normalized).astype(int), 0, height - 1)
 
     # Jittering: add small noise
     noise_level = 1e-5
@@ -55,8 +51,8 @@ def mercator_projection(surface: "napari.types.SurfaceData",
     rbf_interpolator = Rbf(x_data, y_data, values, function='linear')
 
     # Create a grid for interpolation
-    x_grid = np.arange(0, image_width)
-    y_grid = np.arange(0, image_height)
+    x_grid = np.arange(0, width)
+    y_grid = np.arange(0, height)
     xx, yy = np.meshgrid(x_grid, y_grid)
 
     interpolated_map = rbf_interpolator(xx, yy)
