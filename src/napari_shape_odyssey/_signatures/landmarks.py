@@ -10,6 +10,7 @@ import numpy as np
 
 
 class CorrespondenceWidget(QWidget):
+    """Widget to calculate the correspondence between two surfaces."""
     def __init__(self, napari_viewer: "napari.Viewer"):
         super().__init__()
         self.viewer = napari_viewer

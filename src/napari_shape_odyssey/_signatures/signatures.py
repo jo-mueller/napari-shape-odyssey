@@ -52,6 +52,34 @@ def wave_kernel_signature(surface: "napari.types.SurfaceData",
                           sigma: float = 1,
                           scaled: bool = False,
                           robust: bool = False) -> np.ndarray:
+    """
+    Compute the wave kernel signature of a surface.
+
+    Parameters
+    ----------
+    surface : napari.types.SurfaceData
+        A napari surface tuple.
+    energies : np.ndarray
+        Energy values for which to calculate wave kernel values.
+    order: int, optional
+        The order of shape spectrum to caluculate, by default 100
+    sigma : float, optional
+        The sigma to use for the wave kernel signature, by default 1
+    scaled : bool, optional
+        Scale the wave kernel signature or not, by default False
+    robust : bool, optional
+        Use robust laplacian or not, by default False
+
+    Returns
+    -------
+    np.ndarray : np.ndarray
+        The wave kernel signature. Shape is (n_vertices, n_energies).
+
+    See also
+    --------
+    [0] Aubry, Schlickewei, Cremers, "The wave kernel signature: A quantum mechanical
+    approach to shape analysis", 2011, 10.1109/ICCVW.2011.6130444
+    """
     from pyFM.signatures import WKS
     from .._spectral import shape_fingerprint
     eigenvectors, eigenvalues = shape_fingerprint(
@@ -114,6 +142,16 @@ def heat_kernel_signature(surface: "napari.types.SurfaceData",
         The order of shape spectrum to caluculate, by default 100
     robust : bool, optional
         Use robust laplacian or not, by default False
+
+    Returns
+    -------
+    np.ndarray : np.ndarray
+        The heat kernel signature. Shape is (n_vertices, n_times).
+
+    See also
+    --------
+    [0] Bronstein & Kokkinos, "Scale-invariant heat kernel signatures for non-rigid
+    shape recognition", 2010, 10.1109/CVPR.2010.5539838
     """
     from pyFM.signatures import HKS
     from .._spectral import shape_fingerprint

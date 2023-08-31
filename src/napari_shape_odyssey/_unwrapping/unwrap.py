@@ -8,12 +8,14 @@ def map_surface_to_disk(surface: "napari.types.SurfaceData",
 
     """
     Map a surface to a disk.
+
     Parameters
     ----------
     surface : napari.types.SurfaceData
         The surface to be mapped to a disk.
     only_uvs : bool
         If True, only the texture coordinates are returned.
+
     Returns
     -------
     napari.types.SurfaceData
@@ -67,10 +69,12 @@ def map_surface_to_sphere(surface: "napari.types.SurfaceData"
                           ) -> "napari.types.SurfaceData":
     """
     Map a surface to a sphere.
+
     Parameters
     ----------
     surface : napari.types.SurfaceData
         The surface to be mapped to a sphere.
+
     Returns
     -------
     napari.types.SurfaceData
