@@ -1,0 +1,32 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+
+options:
+  numbered: False
+
+parts:
+
+  - caption: Spectral shape analysis
+    chapters:
+    - file: notebooks/spectral_analysis/spectral_analysis
+    - file: notebooks/spectral_analysis/spectral_clustering
+    - file: notebooks/spectral_analysis/shape_resonance
+    - file: notebooks/spectral_analysis/signatures
+    - file: notebooks/spectral_analysis/signatures2
+    - file: notebooks/spectral_analysis/shape_correspondence
+
+  - caption: Unwrapping
+    chapters:
+    - file: notebooks/unwrapping/demo_unwrap_to_disk
+    - file: notebooks/unwrapping/demo_unwrap_to_sphere
+    - file: notebooks/unwrapping/demo_mercator
+  
+  - caption: API
+    chapters:
+    - file: api/signatures
+    - file: api/spectral
+    - file: api/unwrapping
+    
