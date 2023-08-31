@@ -6,10 +6,3 @@ from ._writer import write_multiple, write_single_image
 from . import _spectral as spectral
 from . import _signatures as signatures
 from . import _unwrapping as unwrapping
-
-__all__ = (
-    "napari_get_reader",
-    "write_single_image",
-    "write_multiple",
-    "make_sample_data",
-    )
