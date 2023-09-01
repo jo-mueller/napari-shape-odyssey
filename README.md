@@ -48,7 +48,11 @@ https://napari.org/stable/plugins/index.html
 
 You can install `napari-shape-odyssey` via [pip]:
 
+´´´bash
     pip install napari-shape-odyssey
+    napari-skimage-regionprops @ git+https://github.com/jo-mueller/napari-skimage-regionprops.git
+    pyFM @ git+https://github.com/RobinMagnet/pyFM.git
+´´´
 
 
 
