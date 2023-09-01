@@ -1,0 +1,852 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Spectral clustering &#8212; Napari-shape-odyssey documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/spectral_analysis/spectral_clustering';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Laplace spectra of biological data" href="shape_resonance.html" />
+    <link rel="prev" title="Laplace spectral analysis" href="spectral_analysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/intensity_vs_shape_2.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/intensity_vs_shape_2.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    napari-shape-odyssey
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Spectral shape analysis</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="spectral_analysis.html">Laplace spectral analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Spectral clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_resonance.html">Laplace spectra of biological data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">Kernel signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signatures2.html">Heat kernel signature on cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_correspondence.html">Shape correspondence</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Unwrapping</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../unwrapping/demo_unwrap_to_disk.html">Unwrap to disk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../unwrapping/demo_unwrap_to_sphere.html">Unwrap to sphere</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../unwrapping/demo_mercator.html">Mercator projection of cell surface</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../api/signatures.html">Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/spectral.html">Spectral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/unwrapping.html">Unwrapping</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/spectral_analysis/spectral_clustering.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Spectral clustering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-spectra-for-every-mesh">Calculate spectra for every mesh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize-spectra">Normalize spectra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality reduction</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="spectral-clustering">
+<h1>Spectral clustering<a class="headerlink" href="#spectral-clustering" title="Permalink to this headline">#</a></h1>
+<p>You can use Laplace spectra to cluster data. The idea is that the eigenvalues of the mesh’s Laplace spectrum can be embedded in a lower-dimensional space.</p>
+<p>Data source for this notebooks: <a class="github reference external" href="https://github.com/odedstein/meshes">odedstein/meshes</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">napari_shape_odyssey</span> <span class="k">as</span> <span class="nn">nso</span>
+<span class="kn">import</span> <span class="nn">vedo</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tqdm</span>
+<span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">DBSCAN</span>
+
+<span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/odedstein/meshes.git
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cloning into &#39;meshes&#39;...
+Updating files:  17% (17/96)
+Updating files:  18% (18/96)
+Updating files:  19% (19/96)
+Updating files:  20% (20/96)
+Updating files:  21% (21/96)
+Updating files:  22% (22/96)
+Updating files:  23% (23/96)
+Updating files:  25% (24/96)
+Updating files:  26% (25/96)
+Updating files:  27% (26/96)
+Updating files:  28% (27/96)
+Updating files:  29% (28/96)
+Updating files:  30% (29/96)
+Updating files:  31% (30/96)
+Updating files:  32% (31/96)
+Updating files:  33% (32/96)
+Updating files:  34% (33/96)
+Updating files:  35% (34/96)
+Updating files:  36% (35/96)
+Updating files:  37% (36/96)
+Updating files:  38% (37/96)
+Updating files:  39% (38/96)
+Updating files:  40% (39/96)
+Updating files:  41% (40/96)
+Updating files:  42% (41/96)
+Updating files:  43% (42/96)
+Updating files:  44% (43/96)
+Updating files:  45% (44/96)
+Updating files:  46% (45/96)
+Updating files:  47% (46/96)
+Updating files:  48% (47/96)
+Updating files:  50% (48/96)
+Updating files:  51% (49/96)
+Updating files:  52% (50/96)
+Updating files:  53% (51/96)
+Updating files:  54% (52/96)
+Updating files:  55% (53/96)
+Updating files:  56% (54/96)
+Updating files:  57% (55/96)
+Updating files:  58% (56/96)
+Updating files:  59% (57/96)
+Updating files:  60% (58/96)
+Updating files:  61% (59/96)
+Updating files:  62% (60/96)
+Updating files:  63% (61/96)
+Updating files:  64% (62/96)
+Updating files:  65% (63/96)
+Updating files:  66% (64/96)
+Updating files:  67% (65/96)
+Updating files:  68% (66/96)
+Updating files:  69% (67/96)
+Updating files:  70% (68/96)
+Updating files:  71% (69/96)
+Updating files:  72% (70/96)
+Updating files:  73% (71/96)
+Updating files:  75% (72/96)
+Updating files:  76% (73/96)
+Updating files:  77% (74/96)
+Updating files:  78% (75/96)
+Updating files:  79% (76/96)
+Updating files:  80% (77/96)
+Updating files:  81% (78/96)
+Updating files:  82% (79/96)
+Updating files:  83% (80/96)
+Updating files:  84% (81/96)
+Updating files:  85% (82/96)
+Updating files:  86% (83/96)
+Updating files:  87% (84/96)
+Updating files:  88% (85/96)
+Updating files:  89% (86/96)
+Updating files:  90% (87/96)
+Updating files:  91% (88/96)
+Updating files:  92% (89/96)
+Updating files:  93% (90/96)
+Updating files:  94% (91/96)
+Updating files:  95% (92/96)
+Updating files:  96% (93/96)
+Updating files:  97% (94/96)
+Updating files:  98% (95/96)
+Updating files: 100% (96/96)
+Updating files: 100% (96/96), done.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mesh_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;./meshes/**/*.obj&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="calculate-spectra-for-every-mesh">
+<h2>Calculate spectra for every mesh<a class="headerlink" href="#calculate-spectra-for-every-mesh" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigenvalues</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">eigenvectors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">meshes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">mesh_files</span><span class="p">):</span>
+    <span class="c1"># load and preprocess meshes</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">vedo</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">triangulate</span><span class="p">()</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span><span class="o">.</span><span class="n">decimate</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+    <span class="n">bounding_box_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">mesh</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">bounding_box_volume</span><span class="p">)</span>
+
+    <span class="n">mesh_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">points</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">faces</span><span class="p">()))</span>
+    <span class="n">meshes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mesh_tuple</span><span class="p">)</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_surface</span><span class="p">(</span><span class="n">mesh_tuple</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+    <span class="n">_eigenvectors</span><span class="p">,</span> <span class="n">_eigenvalues</span> <span class="o">=</span> <span class="n">nso</span><span class="o">.</span><span class="n">spectral</span><span class="o">.</span><span class="n">shape_fingerprint</span><span class="p">(</span><span class="n">mesh_tuple</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+
+    <span class="n">eigenvalues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_eigenvalues</span><span class="p">)</span>
+    <span class="n">eigenvectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_eigenvectors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># stack eigenvalues into dataframe</span>
+<span class="n">eigenvalues_stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">eigenvalues_stack</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;lambda_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">eigenvalues_stack</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>lambda_0</th>
+      <th>lambda_1</th>
+      <th>lambda_2</th>
+      <th>lambda_3</th>
+      <th>lambda_4</th>
+      <th>lambda_5</th>
+      <th>lambda_6</th>
+      <th>lambda_7</th>
+      <th>lambda_8</th>
+      <th>lambda_9</th>
+      <th>lambda_10</th>
+      <th>lambda_11</th>
+      <th>lambda_12</th>
+      <th>lambda_13</th>
+      <th>lambda_14</th>
+      <th>lambda_15</th>
+      <th>lambda_16</th>
+      <th>lambda_17</th>
+      <th>lambda_18</th>
+      <th>lambda_19</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1.953646e-14</td>
+      <td>3.497411</td>
+      <td>4.534560</td>
+      <td>5.684497</td>
+      <td>9.985113</td>
+      <td>14.893090</td>
+      <td>22.529184</td>
+      <td>29.669639</td>
+      <td>30.541655</td>
+      <td>37.723114</td>
+      <td>41.284098</td>
+      <td>52.551030</td>
+      <td>58.486390</td>
+      <td>63.681724</td>
+      <td>64.850003</td>
+      <td>71.539644</td>
+      <td>78.696079</td>
+      <td>81.764765</td>
+      <td>95.658377</td>
+      <td>102.104163</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.382054e-14</td>
+      <td>3.497411</td>
+      <td>4.534560</td>
+      <td>5.684497</td>
+      <td>9.985113</td>
+      <td>14.893090</td>
+      <td>22.529184</td>
+      <td>29.669640</td>
+      <td>30.541655</td>
+      <td>37.723113</td>
+      <td>41.284097</td>
+      <td>52.551029</td>
+      <td>58.486391</td>
+      <td>63.681721</td>
+      <td>64.850001</td>
+      <td>71.539641</td>
+      <td>78.696077</td>
+      <td>81.764764</td>
+      <td>95.658375</td>
+      <td>102.104161</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-2.596881e-15</td>
+      <td>0.683063</td>
+      <td>2.141403</td>
+      <td>4.065282</td>
+      <td>4.768848</td>
+      <td>4.828398</td>
+      <td>7.341017</td>
+      <td>7.398343</td>
+      <td>7.880799</td>
+      <td>10.123669</td>
+      <td>10.174560</td>
+      <td>11.785636</td>
+      <td>13.405222</td>
+      <td>14.186425</td>
+      <td>15.805213</td>
+      <td>16.056310</td>
+      <td>16.568611</td>
+      <td>18.689970</td>
+      <td>19.308144</td>
+      <td>21.437427</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-3.480202e-14</td>
+      <td>7.361894</td>
+      <td>14.320784</td>
+      <td>29.855033</td>
+      <td>33.864331</td>
+      <td>38.218302</td>
+      <td>51.627914</td>
+      <td>55.100373</td>
+      <td>63.052792</td>
+      <td>71.963617</td>
+      <td>75.823578</td>
+      <td>91.888147</td>
+      <td>95.434760</td>
+      <td>99.987659</td>
+      <td>114.406247</td>
+      <td>123.437142</td>
+      <td>127.149471</td>
+      <td>140.136072</td>
+      <td>142.793974</td>
+      <td>153.672580</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>8.763823e-15</td>
+      <td>5.616643</td>
+      <td>7.917237</td>
+      <td>8.444330</td>
+      <td>16.360097</td>
+      <td>19.160159</td>
+      <td>20.802747</td>
+      <td>22.530132</td>
+      <td>30.035678</td>
+      <td>35.645911</td>
+      <td>37.769361</td>
+      <td>40.187326</td>
+      <td>41.239513</td>
+      <td>45.143890</td>
+      <td>48.583533</td>
+      <td>55.172578</td>
+      <td>60.318931</td>
+      <td>60.867925</td>
+      <td>64.006032</td>
+      <td>70.048105</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="normalize-spectra">
+<h2>Normalize spectra<a class="headerlink" href="#normalize-spectra" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit a linear curve to every row of the dataframe and divide every value in the row by the slope of the curve</span>
+
+<span class="n">slope</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">intercept</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">slope</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">intercept</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dimensionality-reduction">
+<h2>Dimensionality reduction<a class="headerlink" href="#dimensionality-reduction" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">embedder</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_embedded</span> <span class="o">=</span> <span class="n">embedder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="n">clusterer</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">clusterer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_embedded</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
+    <span class="n">mesh_tuple</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">mesh_tuple</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">labels_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">mesh_tuple</span><span class="p">)</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="s1">&#39;tab10&#39;</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">clusterer</span><span class="o">.</span><span class="n">labels_</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_embedded</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_embedded</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x155abe32bb0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/09d6aff2574cf37dea3ec65a7cab8eaaa1e21bb6c6431b67a607488c20c2fcd9.png" src="../../_images/09d6aff2574cf37dea3ec65a7cab8eaaa1e21bb6c6431b67a607488c20c2fcd9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">clusterer</span><span class="o">.</span><span class="n">labels_</span><span class="o">==</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_surface</span><span class="p">(</span><span class="n">meshes</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">mesh_files</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/spectral_analysis"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="spectral_analysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Laplace spectral analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="shape_resonance.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Laplace spectra of biological data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-spectra-for-every-mesh">Calculate spectra for every mesh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize-spectra">Normalize spectra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality reduction</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Johannes Soltwedel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
