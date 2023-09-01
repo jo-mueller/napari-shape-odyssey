@@ -1,0 +1,6 @@
+jupyter-book>=0.7.0b
+napari
+PyQt5
+napari-shape-odyssey
+napari-skimage-regionprops @ git+https://github.com/jo-mueller/napari-skimage-regionprops.git
+pyFM @ git+https://github.com/RobinMagnet/pyFM.git
