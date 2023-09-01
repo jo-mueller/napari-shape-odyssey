@@ -18,17 +18,17 @@ This plugin provides Laplace spectra ([Reuter, Wolter, Peinecke (2005)](https://
 
 **Laplace spectra** can be imagined to be the equivalent of resonance modes on the surface of a mesh. The resonance and the resonance modes can, for typical objects, look like this:
 
-![](docs/imgs/Eigenvalues.gif)
+![](https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/Eigenvalues.gif)
 
 ** Heat kernel signatures**: Heat dissipation on a mesh depends on local geometry. You can use the heat kernel signature to easily generate a large number of local features of shape
 
-![](./docs/imgs/heat_kernel_signature.gif)
+![](https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/heat_kernel_signature.gif)
 
 ## Unwrapping
 
 This plugin provides a number of methods to unwrap a mesh into basic shapes such as spheres or disks. The method relies on [boundary-first flattening](https://github.com/GeometryCollective/boundary-first-flattening) - currently it's only available on Windows.
 
-![](./docs/imgs/unwrap_to_sphere.png)
+![](https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/unwrap_to_sphere.png)
 
 
 
