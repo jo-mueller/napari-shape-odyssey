@@ -2,13 +2,16 @@ from napari.types import LayerDataTuple
 import numpy as np
 import pandas as pd
 
-def _wave_kernel_signature(surface: "napari.types.SurfaceData",
-                            order: int = 100,
-                            max_energy: int = 10,
-                            n_steps: int = 11,
-                            sigma: float = 1,
-                            scaled: bool = False,
-                            robust: bool = False) -> LayerDataTuple:
+
+def _wave_kernel_signature(
+    surface: "napari.types.SurfaceData",
+    order: int = 100,
+    max_energy: int = 10,
+    n_steps: int = 11,
+    sigma: float = 1,
+    scaled: bool = False,
+    robust: bool = False,
+) -> LayerDataTuple:
     """
     Compute the wave kernel signature of a surface.
 
@@ -37,21 +40,32 @@ def _wave_kernel_signature(surface: "napari.types.SurfaceData",
     """
     energies = np.linspace(0, max_energy, n_steps)
     signature = wave_kernel_signature(
-        surface, order=order, energies=energies, sigma=sigma, scaled=scaled, robust=robust)
+        surface,
+        order=order,
+        energies=energies,
+        sigma=sigma,
+        scaled=scaled,
+        robust=robust,
+    )
 
-    metadata = {'features': pd.DataFrame(
-        signature, columns=["WKS_energy_{:.2f}".format(e) for e in energies]
-    )}
+    metadata = {
+        "features": pd.DataFrame(
+            signature,
+            columns=["WKS_energy_{:.2f}".format(e) for e in energies],
+        )
+    }
 
-    return (surface, {'metadata': metadata}, 'surface')
+    return (surface, {"metadata": metadata}, "surface")
 
 
-def wave_kernel_signature(surface: "napari.types.SurfaceData",
-                          energies: np.ndarray,
-                          order: int = 100,
-                          sigma: float = 1,
-                          scaled: bool = False,
-                          robust: bool = False) -> np.ndarray:
+def wave_kernel_signature(
+    surface: "napari.types.SurfaceData",
+    energies: np.ndarray,
+    order: int = 100,
+    sigma: float = 1,
+    scaled: bool = False,
+    robust: bool = False,
+) -> np.ndarray:
     """
     Compute the wave kernel signature of a surface.
 
@@ -81,21 +95,27 @@ def wave_kernel_signature(surface: "napari.types.SurfaceData",
     approach to shape analysis", 2011, 10.1109/ICCVW.2011.6130444
     """
     from pyFM.signatures import WKS
-    from .._spectral import shape_fingerprint
-    eigenvectors, eigenvalues = shape_fingerprint(
-        surface, order=order, robust=robust)
+    from .._spectral.spectral import shape_fingerprint
 
-    signature = WKS(eigenvalues, eigenvectors, energies, sigma=sigma, scaled=scaled)
+    eigenvectors, eigenvalues = shape_fingerprint(
+        surface, order=order, robust=robust
+    )
+
+    signature = WKS(
+        eigenvalues, eigenvectors, energies, sigma=sigma, scaled=scaled
+    )
 
     return signature
 
 
-def _heat_kernel_signature(surface: "napari.types.SurfaceData",
-                           order: int = 100,
-                           max_time: float = 5,
-                           n_steps: int = 6,
-                           robust: bool = False,
-                           scaled: bool = True) -> LayerDataTuple:
+def _heat_kernel_signature(
+    surface: "napari.types.SurfaceData",
+    order: int = 100,
+    max_time: float = 5,
+    n_steps: int = 6,
+    robust: bool = False,
+    scaled: bool = True,
+) -> LayerDataTuple:
     """
     Compute the heat kernel signature of a surface.
 
@@ -114,20 +134,25 @@ def _heat_kernel_signature(surface: "napari.types.SurfaceData",
     times = np.linspace(0, max_time, n_steps)
 
     signature = heat_kernel_signature(
-        surface, times=times, order=order, robust=robust, scaled=scaled)
+        surface, times=times, order=order, robust=robust, scaled=scaled
+    )
 
-    metadata = {'features': pd.DataFrame(
-        signature, columns=["HKS_t_{:.2f}".format(t) for t in times]
-    )}
+    metadata = {
+        "features": pd.DataFrame(
+            signature, columns=["HKS_t_{:.2f}".format(t) for t in times]
+        )
+    }
 
-    return (surface, {'metadata': metadata}, 'surface')
+    return (surface, {"metadata": metadata}, "surface")
 
 
-def heat_kernel_signature(surface: "napari.types.SurfaceData",
-                          times: np.ndarray,
-                          order: int = 100,
-                          robust: bool = False,
-                          scaled: bool = True) -> np.ndarray:
+def heat_kernel_signature(
+    surface: "napari.types.SurfaceData",
+    times: np.ndarray,
+    order: int = 100,
+    robust: bool = False,
+    scaled: bool = True,
+) -> np.ndarray:
     """
     Compute the heat kernel signature of a surface.
 
@@ -154,9 +179,11 @@ def heat_kernel_signature(surface: "napari.types.SurfaceData",
     shape recognition", 2010, 10.1109/CVPR.2010.5539838
     """
     from pyFM.signatures import HKS
-    from .._spectral import shape_fingerprint
+    from .._spectral.spectral import shape_fingerprint
+
     eigenvectors, eigenvalues = shape_fingerprint(
-        surface, order=order, robust=robust)
+        surface, order=order, robust=robust
+    )
 
     signature = HKS(eigenvalues, eigenvectors, time_list=times, scaled=scaled)
 
