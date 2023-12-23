@@ -1,7 +1,7 @@
 def test_shape_fingerprint(make_napari_viewer):
     import vedo
     import numpy as np
-    from .._spectral import _shape_fingerprint
+    from .._spectral.spectral import _shape_fingerprint
     from napari.layers import Layer
 
     sample_data = vedo.load(vedo.dataurl + "bunny.obj")
