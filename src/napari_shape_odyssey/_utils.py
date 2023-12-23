@@ -12,7 +12,7 @@ def _vedo_to_trimesh(mesh: vedo.Mesh):
     """
     from pyFM.mesh import TriMesh
 
-    return TriMesh(mesh.points(), mesh.faces())
+    return TriMesh(mesh.vertices, mesh.cells)
 
 
 def _surfacetuple_to_trimesh(mesh: "napari.types.SurfaceData"):
@@ -37,4 +37,5 @@ def _vedo_to_tuple(mesh: vedo.Mesh):
         napari.types.SurfaceData: A napari surface tuple.
     """
     import numpy as np
+
     return (mesh.points(), np.asarray(mesh.faces()))
