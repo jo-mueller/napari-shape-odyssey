@@ -4,8 +4,9 @@ from typing import Tuple
 from napari.types import LayerDataTuple
 
 
-def normalize_eigenvalues(eigenvalues: np.ndarray,
-                          method: str = 'slope') -> np.ndarray:
+def normalize_eigenvalues(
+    eigenvalues: np.ndarray, method: str = "slope"
+) -> np.ndarray:
     """
     Normalize the eigenvalues of a shape fingerprint.
 
@@ -27,7 +28,7 @@ def normalize_eigenvalues(eigenvalues: np.ndarray,
     [0] Reuters et al. Laplace-spectra as fingerprints for shape matching (2005)
     """
 
-    if method == 'slope':
+    if method == "slope":
         # do linear regression
         x = np.arange(len(eigenvalues))
         A = np.vstack([x, np.ones(len(x))]).T
@@ -35,16 +36,16 @@ def normalize_eigenvalues(eigenvalues: np.ndarray,
 
         # normalize eigenvalues
         eigenvalues_normed = eigenvalues / m
-    elif method == 'first':
+    elif method == "first":
         first_non_zero = np.where(eigenvalues != 0)[0][0]
         eigenvalues_normed = eigenvalues / eigenvalues[first_non_zero]
 
     return eigenvalues_normed
 
 
-def _shape_fingerprint(surface: "napari.types.SurfaceData",
-                       order: int = 100,
-                       robust: bool = False) -> LayerDataTuple:
+def _shape_fingerprint(
+    surface: "napari.types.SurfaceData", order: int = 100, robust: bool = False
+) -> LayerDataTuple:
     """
     Compute the shape fingerprint of a surface.
 
@@ -69,26 +70,22 @@ def _shape_fingerprint(surface: "napari.types.SurfaceData",
         A napari layer data tuple.
     """
     eigenvectors, eigenvalues = shape_fingerprint(
-        surface, order=order, robust=robust)
+        surface, order=order, robust=robust
+    )
 
     feature_table = pd.DataFrame(
         eigenvectors, columns=[f"eigenvector_{i}" for i in range(order)]
     )
-    spectrum_table = pd.DataFrame(
-        eigenvalues, columns=["eigenvalue"]
-    )
+    spectrum_table = pd.DataFrame(eigenvalues, columns=["eigenvalue"])
 
-    metadata = {
-        'spectrum': spectrum_table,
-        'features': feature_table
-    }
+    metadata = {"spectrum": spectrum_table, "features": feature_table}
 
-    return (surface, {'metadata': metadata}, 'surface')
+    return (surface, {"metadata": metadata}, "surface")
 
 
-def shape_fingerprint(surface: "napari.types.SurfaceData",
-              order: int = 100,
-              robust: bool = False) -> Tuple:
+def shape_fingerprint(
+    surface: "napari.types.SurfaceData", order: int = 100, robust: bool = False
+) -> Tuple:
     """
     Compute the shape fingerprint of a surface.
 
@@ -115,7 +112,7 @@ def shape_fingerprint(surface: "napari.types.SurfaceData",
         The eigenvalues of the shape fingerprint.
     """
 
-    from ._utils import _surfacetuple_to_trimesh
+    from .._utils import _surfacetuple_to_trimesh
 
     mesh = _surfacetuple_to_trimesh(surface)
     mesh.process(k=order, intrinsic=True, robust=robust)
