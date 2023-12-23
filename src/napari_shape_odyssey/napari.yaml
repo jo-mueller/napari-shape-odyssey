@@ -5,9 +5,6 @@ contributions:
     - id: napari-shape-odyssey.get_reader
       python_name: napari_shape_odyssey._reader:napari_get_reader
       title: Open data with shape odyssey
-    - id: napari-shape-odyssey.write_single_image
-      python_name: napari_shape_odyssey._writer:write_single_image
-      title: Save image data with shape odyssey
     - id: napari-shape-odyssey.make_sample_data
       python_name: napari_shape_odyssey._sample_data:generate_polka_dot_surface
       title: Load sample data from shape odyssey
@@ -27,6 +24,9 @@ contributions:
     - id: napari-shape-odyssey.shape_fingerprint_spectral
       python_name: napari_shape_odyssey._spectral:_shape_fingerprint
       title: Spectral shape analysis
+    - id: napari-shape-odyssey.laplace_beltrami_expansion
+      python_name: napari_shape_odyssey._spectral:expand_intensity_on_surface
+      title: Approximate intensity in LBO basis
 
     # Signatures
     - id: napari-shape-odyssey.heat_kernel_signature
@@ -43,6 +43,9 @@ contributions:
     - command: napari-shape-odyssey.shape_fingerprint_spectral
       autogenerate: true
       display_name: Spectral shape analysis
+    - command: napari-shape-odyssey.laplace_beltrami_expansion
+      autogenerate: true
+      display_name: Approximate intensity in LBO basis
     - command: napari-shape-odyssey.heat_kernel_signature
       autogenerate: true
       display_name: Heat kernel signature
