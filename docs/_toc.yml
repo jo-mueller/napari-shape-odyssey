@@ -13,6 +13,7 @@ parts:
     chapters:
     - file: notebooks/spectral_analysis/spectral_analysis
     - file: notebooks/spectral_analysis/spectral_clustering
+    - file: notebooks/spectral_analysis/spectral_intensity_decomposition
     - file: notebooks/spectral_analysis/shape_resonance
     - file: notebooks/spectral_analysis/signatures
     - file: notebooks/spectral_analysis/signatures2
