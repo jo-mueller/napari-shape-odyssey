@@ -1,5 +1,5 @@
-Unwrapping
-==========
+`Unwrapping module`
+===================
 
 Tools for unwrapping 3D shapes into more basic shapes.
 
