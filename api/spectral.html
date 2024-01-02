@@ -331,6 +331,165 @@ document.write(`
                   
   <section id="module-napari_shape_odyssey.spectral">
 <span id="spectral-module"></span><h1><cite>Spectral module</cite><a class="headerlink" href="#module-napari_shape_odyssey.spectral" title="Permalink to this headline">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.LBOIntensityExpander">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari_shape_odyssey.spectral.</span></span><span class="sig-name descname"><span class="pre">LBOIntensityExpander</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari_shape_odyssey.spectral.LBOIntensityExpander" title="Permalink to this definition">#</a></dt>
+<dd><p>Expand intensities on the vertices of a surface in a Laplace-Beltrami basis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>normalize</strong> (<em>bool</em>) – Whether to normalize the input intensity array.</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – The order of the expansion.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.LBOIntensityExpander.coefficients_">
+<span class="sig-name descname"><span class="pre">coefficients_</span></span><a class="headerlink" href="#napari_shape_odyssey.spectral.LBOIntensityExpander.coefficients_" title="Permalink to this definition">#</a></dt>
+<dd><p>The expansion coefficients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.LBOIntensityExpander.eigenvectors">
+<span class="sig-name descname"><span class="pre">eigenvectors</span></span><a class="headerlink" href="#napari_shape_odyssey.spectral.LBOIntensityExpander.eigenvectors" title="Permalink to this definition">#</a></dt>
+<dd><p>The eigenvectors of the Laplace-Beltrami operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.LBOIntensityExpander.eigenvalues">
+<span class="sig-name descname"><span class="pre">eigenvalues</span></span><a class="headerlink" href="#napari_shape_odyssey.spectral.LBOIntensityExpander.eigenvalues" title="Permalink to this definition">#</a></dt>
+<dd><p>The eigenvalues of the Laplace-Beltrami operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>If you use this functionality in your work, please cite:</p>
+<dl class="simple">
+<dt>[0] Mazloom-Farsibaf, Hanieh, et al. “Cellular harmonics for the</dt><dd><p>morphology-invariant analysis of molecular organization at the
+cell surface.” Nature Computational Science 3.9 (2023): 777-788.</p>
+</dd>
+</dl>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.LBOIntensityExpander.characterize_contributions_per_level">
+<span class="sig-name descname"><span class="pre">characterize_contributions_per_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normalize_eigenvalues</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari_shape_odyssey.spectral.LBOIntensityExpander.characterize_contributions_per_level" title="Permalink to this definition">#</a></dt>
+<dd><p>Characterize the contribution of each level to the expansion.</p>
+<p>the characterizations include the mean and standard deviation
+of the difference between the expanded intensity and the input
+intensity per level. Moreover, the energy of the expansion per
+level is calculated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>normalize_eigenvalues</strong> (<em>bool</em>) – Whether to normalize the eigenvalues by the slope of a linear fit.
+Setting this to <cite>True</cite> will make the energy per level scale-invariant.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df</strong> – A dataframe with the characterizations per level.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.LBOIntensityExpander.expand">
+<span class="sig-name descname"><span class="pre">expand</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">napari.types.SurfaceData</span></span></span><a class="headerlink" href="#napari_shape_odyssey.spectral.LBOIntensityExpander.expand" title="Permalink to this definition">#</a></dt>
+<dd><p>Expand the intensity array to the vertices of the surface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> (<em>None</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>expanded_intensity</strong> – The expanded intensity array is stored as the value of the surface tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>‘napari.types.SurfaceData’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.LBOIntensityExpander.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">napari.types.SurfaceData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari_shape_odyssey.spectral.LBOIntensityExpander.fit" title="Permalink to this definition">#</a></dt>
+<dd><p>Fit the expansion coefficients to the surface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>surface</strong> (<em>napari.types.SurfaceData</em>) – A napari surface tuple.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>None</strong> – The coefficients are stored in <a href="#id1"><span class="problematic" id="id2">self.coefficients_</span></a>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.LBOIntensityExpander.fit_expand">
+<span class="sig-name descname"><span class="pre">fit_expand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">napari.types.SurfaceData</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">napari.types.SurfaceData</span></span></span><a class="headerlink" href="#napari_shape_odyssey.spectral.LBOIntensityExpander.fit_expand" title="Permalink to this definition">#</a></dt>
+<dd><p>Fit the expansion coefficients to the surface and expand the intensity array to the vertices of the surface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>surface</strong> (<em>napari.types.SurfaceData</em>) – A napari surface tuple.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>expanded_intensity</strong> – The expanded intensity array is stored as the value of the surface tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>‘napari.types.SurfaceData’</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.shape_fingerprint">
+<span class="sig-prename descclassname"><span class="pre">napari_shape_odyssey.spectral.</span></span><span class="sig-name descname"><span class="pre">shape_fingerprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">napari.types.SurfaceData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span></span></span><a class="headerlink" href="#napari_shape_odyssey.spectral.shape_fingerprint" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the shape fingerprint of a surface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>surface</strong> (<em>napari.types.SurfaceData</em>) – A napari surface tuple.</p></li>
+<li><p><strong>order</strong> (<em>int</em><em>, </em><em>optional</em>) – The order of shape spectrum to caluculate, by default 100</p></li>
+<li><p><strong>robust</strong> (<em>bool</em><em>, </em><em>optional</em>) – Use robust laplacian or not, by default False. In essence,
+if set to true, a smoothed laplacian will be used which is
+numerically more stable, but smoothes out geometry.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>[0] <a class="reference external" href="https://pypi.org/project/robust-laplacian/">https://pypi.org/project/robust-laplacian/</a></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>eigenvectors</strong> (<em>np.ndarray</em>) – The eigenvectors of the shape fingerprint.</p></li>
+<li><p><strong>eigenvalues</strong> (<em>np.ndarray</em>) – The eigenvalues of the shape fingerprint.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
     <script type="text/x-thebe-config">
