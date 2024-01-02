@@ -40,6 +40,10 @@ You can install `napari-shape-odyssey` via [pip]:
 
 ´´´bash
     pip install napari-shape-odyssey
-    napari-skimage-regionprops @ git+https://github.com/jo-mueller/napari-skimage-regionprops.git
-    pyFM @ git+https://github.com/RobinMagnet/pyFM.git
+´´´
+
+Optionally, for some extended options in displaying the results obtained by this plugin, install the following fork:
+
+´´´bash
+    pip install napari-skimage-regionprops @ git+https://github.com/jo-mueller/napari-skimage-regionprops.git
 ´´´
