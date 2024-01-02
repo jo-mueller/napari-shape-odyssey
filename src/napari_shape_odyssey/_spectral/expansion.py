@@ -21,6 +21,14 @@ class LBOIntensityExpander:
     eigenvalues : np.ndarray
         The eigenvalues of the Laplace-Beltrami operator.
 
+    See also
+    --------
+
+    If you use this functionality in your work, please cite:
+
+    [0] Mazloom-Farsibaf, Hanieh, et al. "Cellular harmonics for the
+        morphology-invariant analysis of molecular organization at the
+        cell surface." Nature Computational Science 3.9 (2023): 777-788.
     """
 
     def __init__(self, normalize: bool = False, order: int = 1000):
