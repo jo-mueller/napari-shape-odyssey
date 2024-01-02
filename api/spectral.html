@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Spectral &#8212; Napari-shape-odyssey documentation</title>
+    <title>Spectral module &#8212; Napari-shape-odyssey documentation</title>
   
   
   
@@ -63,8 +63,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/spectral';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Unwrapping" href="unwrapping.html" />
-    <link rel="prev" title="Signatures" href="signatures.html" />
+    <link rel="next" title="Unwrapping module" href="unwrapping.html" />
+    <link rel="prev" title="Signatures module" href="signatures.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -159,6 +159,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/spectral_analysis/spectral_analysis.html">Laplace spectral analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/spectral_analysis/spectral_clustering.html">Spectral clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/spectral_analysis/spectral_intensity_decomposition.html">Spectral intensity decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/spectral_analysis/shape_resonance.html">Laplace spectra of biological data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/spectral_analysis/signatures.html">Kernel signatures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/spectral_analysis/signatures2.html">Heat kernel signature on cells</a></li>
@@ -174,9 +175,12 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="signatures.html">Signatures</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Spectral</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unwrapping.html">Unwrapping</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html"><cite>napari_shape_odyssey</cite></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="signatures.html"><cite>Signatures module</cite></a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#"><cite>Spectral module</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="unwrapping.html"><cite>Unwrapping module</cite></a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -311,7 +315,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Spectral</h1>
+    <h1>Spectral module</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -326,62 +330,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="module-napari_shape_odyssey.spectral">
-<span id="spectral"></span><h1>Spectral<a class="headerlink" href="#module-napari_shape_odyssey.spectral" title="Permalink to this headline">#</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.normalize_eigenvalues">
-<span class="sig-prename descclassname"><span class="pre">napari_shape_odyssey.spectral.</span></span><span class="sig-name descname"><span class="pre">normalize_eigenvalues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eigenvalues</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'slope'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#napari_shape_odyssey.spectral.normalize_eigenvalues" title="Permalink to this definition">#</a></dt>
-<dd><p>Normalize the eigenvalues of a shape fingerprint.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>eigenvalues</strong> (<em>np.ndarray</em>) – The eigenvalues of a shape fingerprint.</p></li>
-<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – The method to use for normalization, by default ‘slope’.
-The options are ‘slope’ and ‘first’.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>eigenvalues_normed</strong> – The normalized eigenvalues of a shape fingerprint.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>[0] Reuters et al. Laplace-spectra as fingerprints for shape matching (2005)</p>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="napari_shape_odyssey.spectral.shape_fingerprint">
-<span class="sig-prename descclassname"><span class="pre">napari_shape_odyssey.spectral.</span></span><span class="sig-name descname"><span class="pre">shape_fingerprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">napari.types.SurfaceData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span></span></span><a class="headerlink" href="#napari_shape_odyssey.spectral.shape_fingerprint" title="Permalink to this definition">#</a></dt>
-<dd><p>Compute the shape fingerprint of a surface.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>surface</strong> (<em>napari.types.SurfaceData</em>) – A napari surface tuple.</p></li>
-<li><p><strong>order</strong> (<em>int</em><em>, </em><em>optional</em>) – The order of shape spectrum to caluculate, by default 100</p></li>
-<li><p><strong>robust</strong> (<em>bool</em><em>, </em><em>optional</em>) – Use robust laplacian or not, by default False. In essence,
-if set to true, a smoothed laplacian will be used which is
-numerically more stable, but smoothes out geometry.</p></li>
-</ul>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>[0] <a class="reference external" href="https://pypi.org/project/robust-laplacian/">https://pypi.org/project/robust-laplacian/</a></p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p><strong>eigenvectors</strong> (<em>np.ndarray</em>) – The eigenvectors of the shape fingerprint.</p></li>
-<li><p><strong>eigenvalues</strong> (<em>np.ndarray</em>) – The eigenvalues of the shape fingerprint.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
+<span id="spectral-module"></span><h1><cite>Spectral module</cite><a class="headerlink" href="#module-napari_shape_odyssey.spectral" title="Permalink to this headline">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -421,7 +370,7 @@ numerically more stable, but smoothes out geometry.</p></li>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Signatures</p>
+        <p class="prev-next-title"><cite>Signatures module</cite></p>
       </div>
     </a>
     <a class="right-next"
@@ -429,7 +378,7 @@ numerically more stable, but smoothes out geometry.</p></li>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Unwrapping</p>
+        <p class="prev-next-title"><cite>Unwrapping module</cite></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

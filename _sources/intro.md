@@ -24,6 +24,10 @@ This plugin provides Laplace spectra ([Reuter, Wolter, Peinecke (2005)](https://
 
 ![](./imgs/heat_kernel_signature.gif)
 
+** Intensity expansion **: Approximate intensity on the surface of a mesh using a Laplace-Beltrami-Operator eigenvector basis. This allows to obtain a measurement for how local or global the signal on the surface of a mesh is.
+
+![](./imgs/Intensity_expansion.gif)
+
 ## Unwrapping
 
 This plugin provides a number of methods to unwrap a mesh into basic shapes such as spheres or disks. The method relies on [boundary-first flattening](https://github.com/GeometryCollective/boundary-first-flattening) - currently it's only available on Windows.
@@ -36,6 +40,10 @@ You can install `napari-shape-odyssey` via [pip]:
 
 ´´´bash
     pip install napari-shape-odyssey
-    napari-skimage-regionprops @ git+https://github.com/jo-mueller/napari-skimage-regionprops.git
-    pyFM @ git+https://github.com/RobinMagnet/pyFM.git
+´´´
+
+Optionally, for some extended options in displaying the results obtained by this plugin, install the following fork:
+
+´´´bash
+    pip install napari-skimage-regionprops @ git+https://github.com/jo-mueller/napari-skimage-regionprops.git
 ´´´

@@ -156,6 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/spectral_analysis.html">Laplace spectral analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/spectral_clustering.html">Spectral clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/spectral_intensity_decomposition.html">Spectral intensity decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/shape_resonance.html">Laplace spectra of biological data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/signatures.html">Kernel signatures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/signatures2.html">Heat kernel signature on cells</a></li>
@@ -171,9 +172,12 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="api/signatures.html">Signatures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/spectral.html">Spectral</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/unwrapping.html">Unwrapping</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/api.html"><cite>napari_shape_odyssey</cite></a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/signatures.html"><cite>Signatures module</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/spectral.html"><cite>Spectral module</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/unwrapping.html"><cite>Unwrapping module</cite></a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -281,7 +285,6 @@ document.write(`
  <a href="#H"><strong>H</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
- | <a href="#S"><strong>S</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
 </div>
@@ -344,16 +347,6 @@ document.write(`
         <li><a href="api/unwrapping.html#module-napari_shape_odyssey.unwrapping">module</a>
 </li>
       </ul></li>
-      <li><a href="api/spectral.html#napari_shape_odyssey.spectral.normalize_eigenvalues">normalize_eigenvalues() (in module napari_shape_odyssey.spectral)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="S">S</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/spectral.html#napari_shape_odyssey.spectral.shape_fingerprint">shape_fingerprint() (in module napari_shape_odyssey.spectral)</a>
-</li>
   </ul></td>
 </tr></table>
 

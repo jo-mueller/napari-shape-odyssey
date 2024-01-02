@@ -158,6 +158,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/spectral_analysis.html">Laplace spectral analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/spectral_clustering.html">Spectral clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/spectral_intensity_decomposition.html">Spectral intensity decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/shape_resonance.html">Laplace spectra of biological data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/signatures.html">Kernel signatures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/spectral_analysis/signatures2.html">Heat kernel signature on cells</a></li>
@@ -173,9 +174,12 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="api/signatures.html">Signatures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/spectral.html">Spectral</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/unwrapping.html">Unwrapping</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/api.html"><cite>napari_shape_odyssey</cite></a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/signatures.html"><cite>Signatures module</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/spectral.html"><cite>Spectral module</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/unwrapping.html"><cite>Unwrapping module</cite></a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -356,6 +360,8 @@ document.write(`
 <p><img alt="" src="_images/Eigenvalues.gif" /></p>
 <p>** Heat kernel signatures**: Heat dissipation on a mesh depends on local geometry. You can use the heat kernel signature to easily generate a large number of local features of shape</p>
 <p><img alt="" src="_images/heat_kernel_signature.gif" /></p>
+<p>** Intensity expansion **: Approximate intensity on the surface of a mesh using a Laplace-Beltrami-Operator eigenvector basis. This allows to obtain a measurement for how local or global the signal on the surface of a mesh is.</p>
+<p><img alt="" src="_images/Intensity_expansion.gif" /></p>
 </section>
 <section id="unwrapping">
 <h2>Unwrapping<a class="headerlink" href="#unwrapping" title="Permalink to this headline">#</a></h2>
@@ -367,8 +373,10 @@ document.write(`
 <p>You can install <code class="docutils literal notranslate"><span class="pre">napari-shape-odyssey</span></code> via [pip]:</p>
 <p>´´´bash
 pip install napari-shape-odyssey
-napari-skimage-regionprops &#64; git+https://github.com/jo-mueller/napari-skimage-regionprops.git
-pyFM &#64; git+https://github.com/RobinMagnet/pyFM.git
+´´´</p>
+<p>Optionally, for some extended options in displaying the results obtained by this plugin, install the following fork:</p>
+<p>´´´bash
+pip install napari-skimage-regionprops &#64; git+https://github.com/jo-mueller/napari-skimage-regionprops.git
 ´´´</p>
 </section>
 <div class="toctree-wrapper compound">
