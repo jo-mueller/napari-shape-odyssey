@@ -26,9 +26,6 @@ parts:
     - file: notebooks/unwrapping/demo_mercator
   
   - caption: API
-    - file: api/api
     chapters:
-    - file: api/signatures
-    - file: api/spectral
-    - file: api/unwrapping
+    - file: api/api
     
